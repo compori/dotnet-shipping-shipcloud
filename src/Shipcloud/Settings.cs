@@ -40,39 +40,11 @@ namespace Compori.Shipping.Shipcloud
         public TimeSpan Timeout { get; set; } = DefaultTimeout;
 
         /// <summary>
-        /// Liefert einen Wert, der angibt ob TLS 1.1 verwendet werden darf.
-        /// </summary>
-        /// <value><c>true</c> wenn TLS 1.1 verwendet werden darf; andernfalls, <c>false</c>.</value>
-        [JsonProperty(PropertyName = "enableTls11")]
-        public bool EnableTls11 { get; set; }
-
-        /// <summary>
-        /// Liefert einen Wert, der angibt ob TLS 1.2 verwendet werden darf.
-        /// </summary>
-        /// <value><c>true</c> wenn TLS 1.2 verwendet werden darf; andernfalls, <c>false</c>.</value>
-        [JsonProperty(PropertyName = "enableTls12")]
-        public bool EnableTls12 { get; set; }
-
-        /// <summary>
         /// Liefert einen Wert, der angibt ob TLS 1.3 verwendet werden darf.
         /// </summary>
         /// <value><c>true</c> wenn TLS 1.3 verwendet werden darf; andernfalls, <c>false</c>.</value>
         [JsonProperty(PropertyName = "enableTls13")]
         public bool EnableTls13 { get; set; }
-
-        /// <summary>
-        /// Liefert einen Wert, der angibt ob TLS 1.1 verwendet werden soll.
-        /// </summary>
-        /// <value><c>true</c> wenn TLS 1.1 verwendet werden soll; andernfalls, <c>false</c>.</value>
-        [JsonProperty(PropertyName = "forceTls11")]
-        public bool ForceTls11 { get; set; }
-
-        /// <summary>
-        /// Liefert einen Wert, der angibt ob TLS 1.2 verwendet werden soll.
-        /// </summary>
-        /// <value><c>true</c> wenn TLS 1.2 verwendet werden soll; andernfalls, <c>false</c>.</value>
-        [JsonProperty(PropertyName = "forceTls12")]
-        public bool ForceTls12 { get; set; }
 
         /// <summary>
         /// Liefert einen Wert, der angibt ob TLS 1.3 verwendet werden soll.

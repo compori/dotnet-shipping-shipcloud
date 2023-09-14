@@ -1,4 +1,5 @@
 ﻿using Compori.Shipping.Shipcloud.Types;
+using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -95,7 +96,7 @@ namespace Compori.Shipping.Shipcloud.Repositories
                         Length = 50,
                         Weight = 0.5,
                     },
-                    Metadata = new Dictionary<string, object> { {"Hallo", "Max"} }
+                    Metadata = new Dictionary<string, object> { { "Hallo", "Max" } }
                 };
 
                 var createResponse = await this.Repository.Create(shipment).ConfigureAwait(false);
@@ -127,6 +128,52 @@ namespace Compori.Shipping.Shipcloud.Repositories
                 {
                     await this.Repository.Delete(id);
                 }
+                this.Cleanup();
+            }
+        }
+
+        [Fact()]
+        public void TestCreateFailed1()
+        {
+            this.Setup();
+            try
+            {
+                var shipment = new ShipmentCreate
+                {
+                    Carrier = "ups",
+                    To = new ShipmentAddress
+                    {
+                        FirstName = null,
+                        LastName = "Friedrich Schneider & PartnerBastlerbedarf GmbH",
+                        CareOf = "",
+                        Street = "",
+                        StreetNumber = "",
+                        City = "Dortmund",
+                        ZipCode = "46520",
+                        Country = "Deutschland",
+                        State = "",
+                        Phone = "0241/789456",
+                        Email = ""
+                    },
+                    CreateShippingLabel = true,
+                    ReferenceNumber = "",
+                    NotificationEmail = "",
+                    Package = new Package
+                    {
+                        Height = 20,
+                        Length = 20,
+                        Weight = 2.5,
+                        Width = 10,
+                        Description = "",
+                        Type = "parcel"
+                    }
+
+                };
+
+                Assert.ThrowsAny<ShipcloudException>(async () => await this.Repository.Create(shipment).ConfigureAwait(false));
+            }
+            finally
+            {
                 this.Cleanup();
             }
         }

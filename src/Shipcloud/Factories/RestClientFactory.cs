@@ -51,16 +51,9 @@ namespace Compori.Shipping.Shipcloud.Factories
             ServicePointManager.SecurityProtocol = SecurityProtocolType.SystemDefault;
 
             // Aktivieren
-            if (settings.EnableTls11)
-            {
-                ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls11;
-                Log.Trace("Enable SecurityProtocolType.Tls11");
-            }
-            if (settings.EnableTls12)
-            {
-                ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
-                Log.Trace("Enable SecurityProtocolType.Tls12");
-            }
+            ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
+            Log.Trace("Enable SecurityProtocolType.Tls12");
+
             if (settings.EnableTls13)
             {
                 ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls13;
@@ -68,16 +61,6 @@ namespace Compori.Shipping.Shipcloud.Factories
             }
 
             // Erzwingen
-            if (settings.ForceTls11)
-            {
-                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls11;
-                Log.Trace("Force SecurityProtocolType.Tls11");
-            }
-            if (settings.ForceTls12)
-            {
-                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-                Log.Trace("Force SecurityProtocolType.Tls12");
-            }
             if (settings.ForceTls13)
             {
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls13;
@@ -100,7 +83,7 @@ namespace Compori.Shipping.Shipcloud.Factories
             this.SetSecurityProtocol(settings);
 
             var authenticator = new ShipcloudAuthenticator(settings.ApiKey);
-            
+
             // Neuen Rest Client erstellen
             var options = new RestClientOptions(settings.Url)
             {

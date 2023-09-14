@@ -171,11 +171,13 @@ namespace Compori.Shipping.Shipcloud
             {
                 throw new ShipcloudException($"Something has seriously gone wrong. Don't worry, we'll have a look at it. If the error persists, please don't hesitate to contact us by sending us an email containing the X-Request-ID ({response.GetRequestId()}) header we've returned.");
             }
-            // 400
-            if (response.StatusCode == HttpStatusCode.BadRequest && TryDeserializeErrorResponse(response.Content, out var errorResponse))
+            
+            // e.g. 400, 422
+            if (TryDeserializeErrorResponse(response.Content, out var errorResponse))
             {
                 throw new ShipcloudException(string.Join(" ", errorResponse.Errors));
             }
+            
 
             throw new ResponseException(response);
         }
