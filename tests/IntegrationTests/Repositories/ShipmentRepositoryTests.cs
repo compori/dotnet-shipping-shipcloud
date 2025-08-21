@@ -1,9 +1,5 @@
 ﻿using Compori.Shipping.Shipcloud.Types;
-using Microsoft.VisualBasic;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -49,7 +45,7 @@ namespace Compori.Shipping.Shipcloud.Repositories
                     }
                 };
 
-                var response = await this.Repository.Create(shipment).ConfigureAwait(false);
+                var response = await this.Repository.Create(shipment);
                 Assert.NotNull(response.RateLimit);
                 Assert.NotNull(response.Result);
                 var result = response.Result;
@@ -99,7 +95,7 @@ namespace Compori.Shipping.Shipcloud.Repositories
                     Metadata = new Dictionary<string, object> { { "Hallo", "Max" } }
                 };
 
-                var createResponse = await this.Repository.Create(shipment).ConfigureAwait(false);
+                var createResponse = await this.Repository.Create(shipment);
                 Assert.NotNull(createResponse.RateLimit);
                 Assert.NotNull(createResponse.Result);
                 var result = createResponse.Result;
@@ -107,7 +103,7 @@ namespace Compori.Shipping.Shipcloud.Repositories
                 id = result.Id;
                 Assert.NotEmpty(result.LabelUrl);
 
-                var readSingleResponse = await this.Repository.Read(id).ConfigureAwait(false);
+                var readSingleResponse = await this.Repository.Read(id);
                 Assert.NotNull(readSingleResponse.RateLimit);
                 Assert.NotNull(readSingleResponse.Result);
                 var actual = readSingleResponse.Result;
@@ -133,7 +129,7 @@ namespace Compori.Shipping.Shipcloud.Repositories
         }
 
         [Fact()]
-        public void TestCreateFailed1()
+        public async Task TestCreateFailed1()
         {
             this.Setup();
             try
@@ -170,7 +166,7 @@ namespace Compori.Shipping.Shipcloud.Repositories
 
                 };
 
-                Assert.ThrowsAny<ShipcloudException>(async () => await this.Repository.Create(shipment).ConfigureAwait(false));
+                await Assert.ThrowsAnyAsync<ShipcloudException>(async () => await this.Repository.Create(shipment).ConfigureAwait(false));
             }
             finally
             {

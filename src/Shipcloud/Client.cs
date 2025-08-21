@@ -18,7 +18,7 @@ namespace Compori.Shipping.Shipcloud
         /// <summary>
         /// Der Logger
         /// </summary>
-        private static readonly NLog.Logger Log = NLog.LogManager.GetLogger(typeof(Client).FullName);
+        private static readonly NLog.Logger Log = NLog.LogManager.GetLogger(Logging.Facility);
 
         /// <summary>
         /// Gets the settings factory.

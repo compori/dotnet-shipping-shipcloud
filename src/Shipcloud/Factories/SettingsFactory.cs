@@ -8,15 +8,15 @@ namespace Compori.Shipping.Shipcloud.Factories
     public class SettingsFactory : ISettingsFactory
     {
         /// <summary>
-        /// Liefert die Einstellungen zrück.
+        /// Liefert die Einstellungen zurück.
         /// </summary>
-        /// <value>The settings.</value>
+        /// <value>Die Einstellungen.</value>
         public Settings Settings { get; protected set; }
 
         /// <summary>
         /// Liest die Einstellungen aus einer Json Text Datei.
         /// </summary>
-        /// <param name="path">The path.</param>
+        /// <param name="path">Der Pfad zur Konfigurationsdatei.</param>
         public void ReadFromJsonFile(string path)
         {
             Guard.AssertArgumentIsNotNullOrWhiteSpace(path, nameof(path));
@@ -28,7 +28,8 @@ namespace Compori.Shipping.Shipcloud.Factories
         /// <summary>
         /// Liest die Einstellungen aus einer Json Text Datei.
         /// </summary>
-        /// <param name="path">The path.</param>
+        /// <param name="path">Der Pfad zur Konfigurationsdatei.</param>
+        /// <param name="settings">Die Einstellung</param>
         public void SaveJsonFile(string path, Settings settings)
         {
             Guard.AssertArgumentIsNotNullOrWhiteSpace(path, nameof(path));
@@ -38,9 +39,9 @@ namespace Compori.Shipping.Shipcloud.Factories
         }
 
         /// <summary>
-        /// Liest die Einstellungen aus einem Json String
+        /// Liest die Einstellungen aus einem Json String.
         /// </summary>
-        /// <param name="json">The json.</param>
+        /// <param name="json">Der Json String.</param>
         public void ReadFromJson(string json)
         {
             Guard.AssertArgumentIsNotNullOrWhiteSpace(json, nameof(json));
@@ -55,11 +56,7 @@ namespace Compori.Shipping.Shipcloud.Factories
         /// <exception cref="System.InvalidOperationException">Die Einstellungen sind nicht gesetzt.</exception>
         public Settings Create()
         {
-            if(this.Settings == null)
-            {
-                throw new InvalidOperationException("Die Einstellungen sind nicht gesetzt.");
-            }
-            return this.Settings;
+            return this.Settings ?? throw new InvalidOperationException("Die Einstellungen sind nicht gesetzt.");
         }
     }
 }

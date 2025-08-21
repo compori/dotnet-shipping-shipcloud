@@ -1,9 +1,7 @@
 ﻿using Compori.Shipping.Shipcloud.RestSharp;
 using Newtonsoft.Json;
 using RestSharp;
-using RestSharp.Authenticators;
 using RestSharp.Serializers.NewtonsoftJson;
-using System;
 using System.Net;
 
 namespace Compori.Shipping.Shipcloud.Factories
@@ -13,36 +11,37 @@ namespace Compori.Shipping.Shipcloud.Factories
         /// <summary>
         /// Der Logger
         /// </summary>
-        private static readonly NLog.Logger Log = NLog.LogManager.GetLogger(typeof(RestClientFactory).FullName);
+        private static readonly NLog.Logger Log = NLog.LogManager.GetLogger(Logging.Facility);
 
         /// <summary>
         /// Wurde die das Security Protocol bereits gesetzt?
         /// </summary>
-        private bool isSecurityProtocol;
+        private bool _isSecurityProtocol;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RestClientFactory"/> class.
         /// </summary>
         public RestClientFactory()
         {
-            this.isSecurityProtocol = false;
+            this._isSecurityProtocol = false;
         }
 
         /// <summary>
-        /// Liefert das aktuelle Securityprotocol zurück.
+        /// Liefert das aktuelle Security Protokoll zurück.
         /// </summary>
-        /// <value>Das aktuelle Securityprotocol.</value>
+        /// <value>Das aktuelle Security Protokoll.</value>
         public SecurityProtocolType SecurityProtocol => ServicePointManager.SecurityProtocol;
 
         /// <summary>
         /// Setzt das Security Protocol des ServicePointManager.
         /// </summary>
         /// <param name="settings">Die Einstellungen.</param>
+        /// <param name="force">Wenn <c>true</c> soll das setzen nochmal ausgeführt werden, auch wenn bereits gesetzt wurde.</param>
         public void SetSecurityProtocol(Settings settings, bool force = false)
         {
             Guard.AssertArgumentIsNotNull(settings, nameof(settings));
 
-            if (this.isSecurityProtocol && !force)
+            if (this._isSecurityProtocol && !force)
             {
                 return;
             }
@@ -67,7 +66,7 @@ namespace Compori.Shipping.Shipcloud.Factories
                 Log.Trace("Force SecurityProtocolType.Tls13");
             }
 
-            this.isSecurityProtocol = true;
+            this._isSecurityProtocol = true;
         }
 
         /// <summary>
@@ -87,7 +86,7 @@ namespace Compori.Shipping.Shipcloud.Factories
             // Neuen Rest Client erstellen
             var options = new RestClientOptions(settings.Url)
             {
-                MaxTimeout = Convert.ToInt32(settings.Timeout.TotalMilliseconds),
+                Timeout = settings.Timeout,
                 UserAgent = settings.ClientAgent,
                 Authenticator = authenticator
             };
@@ -100,9 +99,7 @@ namespace Compori.Shipping.Shipcloud.Factories
                 })
             );
 
-            Log.Trace(authenticator != null
-                ? $"Created a new REST client to '{settings.Url}' with Authenticator."
-                : $"Created a new REST client to '{settings.Url}'.");
+            Log.Trace($"Created a new REST client to '{settings.Url}'");
 
             return client;
         }

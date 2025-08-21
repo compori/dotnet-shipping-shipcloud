@@ -21,7 +21,7 @@ namespace Compori.Shipping.Shipcloud.Repositories
             try
             {
                 var repository = new CarrierRepository(this.TestContext.CreateUnauthorizedClient());
-                await Assert.ThrowsAsync<ShipcloudException>( async () => await repository.Read().ConfigureAwait(false) );                
+                await Assert.ThrowsAsync<ShipcloudException>( async () => await repository.Read());                
             }
             finally
             {
@@ -36,7 +36,7 @@ namespace Compori.Shipping.Shipcloud.Repositories
 
             try
             {
-                var result = await this.Repository.Read().ConfigureAwait(false);
+                var result = await this.Repository.Read();
                 Assert.NotNull(result.RateLimit);
                 Assert.NotNull(result.Result);
             }

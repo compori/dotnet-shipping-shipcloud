@@ -35,7 +35,7 @@ namespace Compori.Shipping.Shipcloud.Repositories
                     Country = "DE",
                 };
 
-                var response = await this.Repository.Create(address).ConfigureAwait(false);
+                var response = await this.Repository.Create(address);
                 var actual = response.Result;
 
                 Assert.NotNull(response.RateLimit);
@@ -75,7 +75,7 @@ namespace Compori.Shipping.Shipcloud.Repositories
             this.Setup();
             try
             {
-                var response = await this.Repository.Read(new AddressFilter { LastName = "Meier" }).ConfigureAwait(false);
+                var response = await this.Repository.Read(new AddressFilter { LastName = "Meier" });
                 Assert.NotNull(response.RequestId);
                 Assert.NotNull(response.RateLimit);
                 Assert.NotNull(response.Result);
@@ -96,7 +96,7 @@ namespace Compori.Shipping.Shipcloud.Repositories
 
             try
             {
-                var response = await this.Repository.Read().ConfigureAwait(false);
+                var response = await this.Repository.Read();
                 Assert.NotNull(response.RequestId);
                 Assert.NotNull(response.RateLimit);
                 Assert.NotNull(response.Result);
