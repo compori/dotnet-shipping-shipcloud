@@ -5,7 +5,7 @@
     <AssemblyName>Compori.Shipping.Shipcloud</AssemblyName>
     <RootNamespace>Compori.Shipping.Shipcloud</RootNamespace>
     <LangVersion>8</LangVersion>
-    <VersionPrefix>1.1.0</VersionPrefix>
+    <VersionPrefix>1.2.0</VersionPrefix>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Company>Compori</Company>
     <Authors>Martin Monnier</Authors>
@@ -24,9 +24,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Compori.Base" Version="0.4.0" />
+    <PackageReference Include="Compori.Base" Version="0.5.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="NLog" Version="5.1.4" />
+    <PackageReference Include="NLog" Version="6.0.3" />
     <PackageReference Include="RestSharp" Version="112.1.0" />
     <PackageReference Include="RestSharp.Serializers.NewtonsoftJson" Version="112.1.0" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
